@@ -4,6 +4,9 @@ import './globals.css'
 import { ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 import { ThemeProvider } from '@/components/theme-provider'
+import { NextIntlClientProvider } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
+import { getServerLocale } from '@/lib/i18n'
 
 const fontSans = Geist({
   subsets: ['latin'],
@@ -15,32 +18,38 @@ const fontMono = Geist_Mono({
   variable: '--font-mono',
 })
 
-export const metadata: Metadata = {
-  title: 'Speakfun',
-  description: 'English study app',
-  icons: {
-    icon: [
-      {
-        media: '(prefers-color-scheme: light)',
-        url: '/favicon-light.ico',
-      },
-      {
-        media: '(prefers-color-scheme: dark)',
-        url: '/favicon-dark.ico',
-      },
-    ],
-  },
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('app.metadata')
+
+  return {
+    title: t('title'),
+    description: t('description'),
+    icons: {
+      icon: [
+        {
+          media: '(prefers-color-scheme: light)',
+          url: '/favicon-light.ico',
+        },
+        {
+          media: '(prefers-color-scheme: dark)',
+          url: '/favicon-dark.ico',
+        },
+      ],
+    },
+  }
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: ReactNode
 }>) {
+  const locale = await getServerLocale()
+
   return (
     <html
       suppressHydrationWarning
-      lang="en"
+      lang={locale}
       className={cn(
         'antialiased',
         fontMono.variable,
@@ -49,14 +58,16 @@ export default function RootLayout({
       )}
     >
       <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+        <NextIntlClientProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   )

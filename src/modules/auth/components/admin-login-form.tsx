@@ -21,8 +21,11 @@ import {
 import { useState } from 'react'
 import { Alert, AlertTitle } from '@/components/ui/alert'
 import { AlertCircleIcon } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 export function AdminLoginForm() {
+  const t = useTranslations('auth.adminLogin')
+  const commonButtons = useTranslations('common.buttons')
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
   const form = useForm({
@@ -39,7 +42,7 @@ export function AdminLoginForm() {
         await adminLogin(value)
         router.push('/')
       } catch {
-        setError('Invalid email or password')
+        setError(t('validation.invalidCredentials'))
       }
     },
   })
@@ -59,7 +62,7 @@ export function AdminLoginForm() {
         <form.Field name="email">
           {field => (
             <Field>
-              <FieldLabel htmlFor="email">Email</FieldLabel>
+              <FieldLabel htmlFor="email">{t('form.labels.email')}</FieldLabel>
               <Input
                 id="email"
                 type="email"
@@ -77,7 +80,9 @@ export function AdminLoginForm() {
         <form.Field name="password">
           {field => (
             <Field>
-              <FieldLabel htmlFor="password">Password</FieldLabel>
+              <FieldLabel htmlFor="password">
+                {t('form.labels.password')}
+              </FieldLabel>
               <Input
                 id="password"
                 type="password"
@@ -100,7 +105,7 @@ export function AdminLoginForm() {
         )}
         <Field>
           <Button disabled={!canSubmit} loading={isSubmitting} type="submit">
-            Login
+            {commonButtons('login')}
           </Button>
         </Field>
       </FieldGroup>

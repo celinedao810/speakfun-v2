@@ -15,8 +15,11 @@ import { loginWithEmail } from '#auth/services/login'
 import { Login } from '#auth/types/login'
 import { useRouter } from 'next/navigation'
 import { useIsFormSubmitting, useShouldHideFormErrors } from '@/hooks/forms'
+import { useTranslations } from 'next-intl'
 
 export function LoginForm() {
+  const t = useTranslations('auth.login')
+  const commonButtons = useTranslations('common.buttons')
   const router = useRouter()
   const form = useForm({
     defaultValues: {
@@ -50,22 +53,22 @@ export function LoginForm() {
                 fill="currentColor"
               />
             </svg>
-            Login with Google
+            {commonButtons('loginWithGoogle')}
           </Button>
         </Field>
         <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
-          Or continue with
+          {t('form.separators.orContinueWith')}
         </FieldSeparator>
         <form.Field name="email">
           {field => (
             <Field>
-              <FieldLabel htmlFor="email">Email</FieldLabel>
+              <FieldLabel htmlFor="email">{t('form.labels.email')}</FieldLabel>
               <Input
                 id="email"
                 type="email"
                 value={field.state.value}
                 onChange={e => field.handleChange(e.target.value)}
-                placeholder="name@example.com"
+                placeholder={t('form.placeholders.email')}
                 required
               />
               <FieldError
@@ -77,7 +80,7 @@ export function LoginForm() {
         </form.Field>
         <Field>
           <Button loading={isSubmitting} type="submit">
-            Continue with email
+            {commonButtons('continueWithEmail')}
           </Button>
         </Field>
       </FieldGroup>

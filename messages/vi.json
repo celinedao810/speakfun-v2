@@ -1,0 +1,66 @@
+{
+  "common": {
+    "branding": {
+      "name": "Speakfun",
+      "logoAlt": "Logo"
+    },
+    "buttons": {
+      "loginWithGoogle": "Đăng nhập với Google",
+      "continueWithEmail": "Tiếp tục với email",
+      "login": "Đăng nhập",
+      "verifyCode": "Xác thực mã",
+      "submit": "Gửi"
+    }
+  },
+  "app": {
+    "metadata": {
+      "title": "Speakfun",
+      "description": "Ứng dụng học tiếng Anh"
+    }
+  },
+  "auth": {
+    "login": {
+      "page": {
+        "title": "Chào mừng bạn quay lại",
+        "description": "Đăng nhập bằng tài khoản Google của bạn"
+      },
+      "form": {
+        "separators": {
+          "orContinueWith": "Hoặc tiếp tục với"
+        },
+        "labels": {
+          "email": "Email"
+        },
+        "placeholders": {
+          "email": "name@example.com"
+        }
+      }
+    },
+    "adminLogin": {
+      "page": {
+        "title": "Chào mừng quay lại, quản trị viên!",
+        "description": "Đăng nhập bằng tài khoản root"
+      },
+      "form": {
+        "labels": {
+          "email": "Email",
+          "password": "Mật khẩu"
+        }
+      },
+      "validation": {
+        "invalidCredentials": "Email hoặc mật khẩu không hợp lệ"
+      }
+    },
+    "magicLink": {
+      "page": {
+        "title": "Kiểm tra email của bạn",
+        "description": "Mở magic link chúng tôi đã gửi tới {email} để hoàn tất đăng nhập, hoặc nhập mã xác thực trong email đó bên dưới."
+      },
+      "form": {
+        "labels": {
+          "verificationCode": "Mã xác thực"
+        }
+      }
+    }
+  }
+}
