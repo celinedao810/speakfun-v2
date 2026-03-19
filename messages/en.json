@@ -60,6 +60,19 @@
         "labels": {
           "verificationCode": "Verification code"
         }
+      },
+      "validation": {
+        "invalidVerificationCode": "Invalid verification code. Please try again."
+      }
+    },
+    "magicLinkConfirm": {
+      "success": {
+        "title": "Email verified successfully",
+        "description": "You are signed in. Redirecting you to the home page..."
+      },
+      "error": {
+        "title": "Unable to verify magic link",
+        "brokenOrExpired": "This URL is broken or expired."
       }
     }
   }

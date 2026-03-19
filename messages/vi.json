@@ -60,6 +60,19 @@
         "labels": {
           "verificationCode": "Mã xác thực"
         }
+      },
+      "validation": {
+        "invalidVerificationCode": "Mã xác thực không hợp lệ. Vui lòng thử lại."
+      }
+    },
+    "magicLinkConfirm": {
+      "success": {
+        "title": "Xác thực email thành công",
+        "description": "Bạn đã đăng nhập. Đang chuyển hướng về trang chủ..."
+      },
+      "error": {
+        "title": "Không thể xác thực magic link",
+        "brokenOrExpired": "Liên kết này không hợp lệ hoặc đã hết hạn."
       }
     }
   }
