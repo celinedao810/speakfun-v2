@@ -1,5 +1,5 @@
 import { mutationOptions } from '@tanstack/react-query'
-import { adminLogin, loginWithEmail } from '#auth/services/login'
+import { adminLogin, loginWithEmail, verifyOtp } from '#auth/services/login'
 
 export function loginWithEmailMutation() {
   return mutationOptions({
@@ -10,5 +10,11 @@ export function loginWithEmailMutation() {
 export function adminLoginMutation() {
   return mutationOptions({
     mutationFn: adminLogin,
+  })
+}
+
+export function verifyOtpMutation() {
+  return mutationOptions({
+    mutationFn: verifyOtp,
   })
 }

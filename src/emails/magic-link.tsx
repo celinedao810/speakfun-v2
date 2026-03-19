@@ -42,7 +42,7 @@ export default function MagicLink() {
             </Heading>
             <Section className="mt-7 text-center">
               <Button
-                href={`${baseUrl}/auth/magic-link`}
+                href={`${baseUrl}/auth/magic-link/confirm`}
                 className="inline-block rounded-lg bg-[#005E58] px-5 py-2 text-[14px] font-semibold text-white"
               >
                 Click here to login
