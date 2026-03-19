@@ -15,6 +15,7 @@ import { AdminLogin } from '#auth/types/login'
 import { useRouter } from 'next/navigation'
 import {
   useCanFormSubmit,
+  useIsFormSubmitSuccessful,
   useIsFormSubmitting,
   useShouldHideFormErrors,
 } from '@/hooks/forms'
@@ -48,7 +49,7 @@ export function AdminLoginForm() {
   })
   const hideErrors = useShouldHideFormErrors(form)
   const isSubmitting = useIsFormSubmitting(form)
-
+  const isSubmitSucceeded = useIsFormSubmitSuccessful(form)
   const canSubmit = useCanFormSubmit(form)
 
   return (
@@ -104,7 +105,11 @@ export function AdminLoginForm() {
           </Alert>
         )}
         <Field>
-          <Button disabled={!canSubmit} loading={isSubmitting} type="submit">
+          <Button
+            disabled={!canSubmit}
+            loading={isSubmitting || isSubmitSucceeded}
+            type="submit"
+          >
             {commonButtons('login')}
           </Button>
         </Field>

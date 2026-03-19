@@ -14,7 +14,12 @@ import { loginSchema } from '#auth/schemas/login'
 import { loginWithEmail } from '#auth/services/login'
 import { Login } from '#auth/types/login'
 import { useRouter } from 'next/navigation'
-import { useIsFormSubmitting, useShouldHideFormErrors } from '@/hooks/forms'
+import {
+  useCanFormSubmit,
+  useIsFormSubmitSuccessful,
+  useIsFormSubmitting,
+  useShouldHideFormErrors,
+} from '@/hooks/forms'
 import { useTranslations } from 'next-intl'
 
 export function LoginForm() {
@@ -27,6 +32,7 @@ export function LoginForm() {
     } as Login,
     validators: {
       onChange: loginSchema,
+      onMount: loginSchema,
     },
     onSubmit: async ({ value }) => {
       await loginWithEmail(value)
@@ -36,6 +42,8 @@ export function LoginForm() {
 
   const hideErrors = useShouldHideFormErrors(form)
   const isSubmitting = useIsFormSubmitting(form)
+  const isSubmitSucceeded = useIsFormSubmitSuccessful(form)
+  const canSubmit = useCanFormSubmit(form)
 
   return (
     <form
@@ -79,7 +87,11 @@ export function LoginForm() {
           )}
         </form.Field>
         <Field>
-          <Button loading={isSubmitting} type="submit">
+          <Button
+            disabled={!canSubmit}
+            loading={isSubmitting || isSubmitSucceeded}
+            type="submit"
+          >
             {commonButtons('continueWithEmail')}
           </Button>
         </Field>
