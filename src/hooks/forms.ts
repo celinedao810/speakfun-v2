@@ -12,6 +12,10 @@ export function useIsFormSubmitting(form: AnyFormApi) {
   return useStore(form.store, state => state.isSubmitting)
 }
 
+export function useIsFormSubmitSuccessful(form: AnyFormApi) {
+  return useStore(form.store, state => state.isSubmitSuccessful)
+}
+
 export function useCanFormSubmit(form: AnyFormApi) {
   const canSubmit = useStore(form.store, state => state.canSubmit)
   const isTouched = useStore(form.store, state => state.isTouched)
