@@ -3,10 +3,10 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import { ReactNode } from 'react'
 import { cn } from '@/lib/utils'
-import { ThemeProvider } from '@/components/theme-provider'
-import { NextIntlClientProvider } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { getServerLocale } from '@/lib/i18n'
+import { Providers } from '@/components/providers'
+import { NextIntlClientProvider } from 'next-intl'
 
 const fontSans = Geist({
   subsets: ['latin'],
@@ -59,14 +59,7 @@ export default async function RootLayout({
     >
       <body>
         <NextIntlClientProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
+          <Providers>{children}</Providers>
         </NextIntlClientProvider>
       </body>
     </html>

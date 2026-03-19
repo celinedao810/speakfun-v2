@@ -11,21 +11,23 @@ import {
 import { Input } from '@/components/ui/input'
 import { useForm } from '@tanstack/react-form'
 import { loginSchema } from '#auth/schemas/login'
-import { loginWithEmail } from '#auth/services/login'
 import { Login } from '#auth/types/login'
 import { useRouter } from 'next/navigation'
 import {
   useCanFormSubmit,
-  useIsFormSubmitSuccessful,
   useIsFormSubmitting,
   useShouldHideFormErrors,
 } from '@/hooks/forms'
 import { useTranslations } from 'next-intl'
+import { useMutation } from '@tanstack/react-query'
+import { loginWithEmailMutation } from '#auth/mutations/login'
 
 export function LoginForm() {
   const t = useTranslations('auth.login')
   const commonButtons = useTranslations('common.buttons')
   const router = useRouter()
+  const loginMutation = useMutation(loginWithEmailMutation())
+
   const form = useForm({
     defaultValues: {
       email: '',
@@ -35,14 +37,13 @@ export function LoginForm() {
       onMount: loginSchema,
     },
     onSubmit: async ({ value }) => {
-      await loginWithEmail(value)
+      await loginMutation.mutateAsync(value)
       router.push(`auth/magic-link?email=${value.email}`)
     },
   })
 
   const hideErrors = useShouldHideFormErrors(form)
   const isSubmitting = useIsFormSubmitting(form)
-  const isSubmitSucceeded = useIsFormSubmitSuccessful(form)
   const canSubmit = useCanFormSubmit(form)
 
   return (
@@ -89,7 +90,7 @@ export function LoginForm() {
         <Field>
           <Button
             disabled={!canSubmit}
-            loading={isSubmitting || isSubmitSucceeded}
+            loading={isSubmitting || loginMutation.isSuccess}
             type="submit"
           >
             {commonButtons('continueWithEmail')}
