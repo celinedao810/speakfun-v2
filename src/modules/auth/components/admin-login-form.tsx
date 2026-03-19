@@ -10,12 +10,10 @@ import {
 import { Input } from '@/components/ui/input'
 import { useForm } from '@tanstack/react-form'
 import { adminLoginSchema } from '#auth/schemas/login'
-import { adminLogin } from '#auth/services/login'
 import { AdminLogin } from '#auth/types/login'
 import { useRouter } from 'next/navigation'
 import {
   useCanFormSubmit,
-  useIsFormSubmitSuccessful,
   useIsFormSubmitting,
   useShouldHideFormErrors,
 } from '@/hooks/forms'
@@ -23,12 +21,16 @@ import { useState } from 'react'
 import { Alert, AlertTitle } from '@/components/ui/alert'
 import { AlertCircleIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import { useMutation } from '@tanstack/react-query'
+import { adminLoginMutation } from '#auth/mutations/login'
 
 export function AdminLoginForm() {
   const t = useTranslations('auth.adminLogin')
   const commonButtons = useTranslations('common.buttons')
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
+  const loginMutation = useMutation(adminLoginMutation())
+
   const form = useForm({
     defaultValues: {
       email: '',
@@ -40,7 +42,7 @@ export function AdminLoginForm() {
     },
     onSubmit: async ({ value }) => {
       try {
-        await adminLogin(value)
+        await loginMutation.mutateAsync(value)
         router.push('/')
       } catch {
         setError(t('validation.invalidCredentials'))
@@ -49,7 +51,6 @@ export function AdminLoginForm() {
   })
   const hideErrors = useShouldHideFormErrors(form)
   const isSubmitting = useIsFormSubmitting(form)
-  const isSubmitSucceeded = useIsFormSubmitSuccessful(form)
   const canSubmit = useCanFormSubmit(form)
 
   return (
@@ -107,7 +108,7 @@ export function AdminLoginForm() {
         <Field>
           <Button
             disabled={!canSubmit}
-            loading={isSubmitting || isSubmitSucceeded}
+            loading={isSubmitting || loginMutation.isSuccess}
             type="submit"
           >
             {commonButtons('login')}
