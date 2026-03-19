@@ -1,3 +1,5 @@
+'use client'
+
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -13,24 +15,24 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from '@/components/ui/input-otp'
+import { useTranslations } from 'next-intl'
 
 export function MagicLinkForm({ email }: { email: string }) {
+  const t = useTranslations('auth.magicLink')
+  const commonButtons = useTranslations('common.buttons')
+
   return (
     <Card className="bg-background">
       <CardHeader className="text-center">
-        <CardTitle className="text-xl">Check your email</CardTitle>
-        <CardDescription>
-          Open the magic link we sent to{' '}
-          <span className="font-medium text-foreground">{email}</span> to finish
-          logging in, or enter the verification code from that email below.
-        </CardDescription>
+        <CardTitle className="text-xl">{t('page.title')}</CardTitle>
+        <CardDescription>{t('page.description', { email })}</CardDescription>
       </CardHeader>
       <CardContent>
         <form>
           <FieldGroup>
             <Field>
               <FieldLabel htmlFor="verification-code">
-                Verification code
+                {t('form.labels.verificationCode')}
               </FieldLabel>
               <InputOTP maxLength={8} id="otp-verification" required>
                 <InputOTPGroup className="*:data-[slot=input-otp-slot]:h-12.5 *:data-[slot=input-otp-slot]:w-12.5 *:data-[slot=input-otp-slot]:text-xl">
@@ -49,7 +51,7 @@ export function MagicLinkForm({ email }: { email: string }) {
               </InputOTP>
             </Field>
             <Field>
-              <Button type="submit">Verify code</Button>
+              <Button type="submit">{commonButtons('verifyCode')}</Button>
             </Field>
           </FieldGroup>
         </form>

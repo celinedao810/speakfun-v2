@@ -1,0 +1,66 @@
+{
+  "common": {
+    "branding": {
+      "name": "Speakfun",
+      "logoAlt": "Logo"
+    },
+    "buttons": {
+      "loginWithGoogle": "Login with Google",
+      "continueWithEmail": "Continue with email",
+      "login": "Login",
+      "verifyCode": "Verify code",
+      "submit": "Submit"
+    }
+  },
+  "app": {
+    "metadata": {
+      "title": "Speakfun",
+      "description": "English study app"
+    }
+  },
+  "auth": {
+    "login": {
+      "page": {
+        "title": "Welcome back",
+        "description": "Login with your Google account"
+      },
+      "form": {
+        "separators": {
+          "orContinueWith": "Or continue with"
+        },
+        "labels": {
+          "email": "Email"
+        },
+        "placeholders": {
+          "email": "name@example.com"
+        }
+      }
+    },
+    "adminLogin": {
+      "page": {
+        "title": "Welcome back, admin!",
+        "description": "Login with root account"
+      },
+      "form": {
+        "labels": {
+          "email": "Email",
+          "password": "Password"
+        }
+      },
+      "validation": {
+        "invalidCredentials": "Invalid email or password"
+      }
+    },
+    "magicLink": {
+      "page": {
+        "title": "Check your email",
+        "description": "Open the magic link we sent to {email} to finish logging in, or enter the verification code from that email below."
+      },
+      "form": {
+        "labels": {
+          "verificationCode": "Verification code"
+        }
+      }
+    }
+  }
+}

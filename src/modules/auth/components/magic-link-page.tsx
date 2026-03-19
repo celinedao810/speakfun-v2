@@ -4,12 +4,14 @@ import Image from 'next/image'
 import { MagicLinkForm } from '#auth/components/magic-link-form'
 import { useRouter } from 'next/navigation'
 import { use, useEffect } from 'react'
+import { useTranslations } from 'next-intl'
 
 export function MagicLinkPage({
   searchParams,
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
+  const commonBranding = useTranslations('common.branding')
   const router = useRouter()
   const { email } = use(searchParams)
   useEffect(() => {
@@ -24,9 +26,14 @@ export function MagicLinkPage({
     <div className="z-20 flex w-full max-w-md flex-col gap-6">
       <div className="flex items-center gap-2 self-center font-medium">
         <div className="flex size-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
-          <Image src="/logo.png" alt="Logo" width={24} height={24} />
+          <Image
+            src="/logo.png"
+            alt={commonBranding('logoAlt')}
+            width={24}
+            height={24}
+          />
         </div>
-        Speakfun
+        {commonBranding('name')}
       </div>
       <MagicLinkForm email={email as string} />
     </div>
