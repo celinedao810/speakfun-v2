@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
         has: [
           {
             type: 'host',
-            value: 'admin.localhost',
+            value: process.env.ADMIN_HOST || 'admin.localhost',
           },
         ],
         destination: '/admin/:path*',
